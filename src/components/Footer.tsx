@@ -1,3 +1,6 @@
+import { Link } from 'react-router-dom';
+import { scrollToSection } from '@/hooks/use-active-section';
+
 const Footer = () => {
   return (
     <footer className="relative py-16 px-6 border-t border-border bg-secondary/20">
@@ -33,19 +36,25 @@ const Footer = () => {
             </h4>
             <ul className="space-y-3">
               <li>
-                <a href="#" className="text-sm text-muted-foreground hover:text-synapse-cyan transition-colors">
+                <button 
+                  onClick={() => scrollToSection('arquitetura')}
+                  className="text-sm text-muted-foreground hover:text-synapse-cyan transition-colors"
+                >
                   Arquitetura
-                </a>
+                </button>
               </li>
               <li>
-                <a href="#" className="text-sm text-muted-foreground hover:text-synapse-cyan transition-colors">
+                <button 
+                  onClick={() => scrollToSection('modulos')}
+                  className="text-sm text-muted-foreground hover:text-synapse-cyan transition-colors"
+                >
                   Casos
-                </a>
+                </button>
               </li>
               <li>
-                <a href="#" className="text-sm text-muted-foreground hover:text-synapse-cyan transition-colors">
+                <Link to="/docs" className="text-sm text-muted-foreground hover:text-synapse-cyan transition-colors">
                   Documentação
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -56,9 +65,12 @@ const Footer = () => {
             </h4>
             <ul className="space-y-3">
               <li>
-                <a href="#" className="text-sm text-muted-foreground hover:text-synapse-cyan transition-colors">
+                <button 
+                  onClick={() => scrollToSection('contato')}
+                  className="text-sm text-muted-foreground hover:text-synapse-cyan transition-colors"
+                >
                   Falar com arquiteto
-                </a>
+                </button>
               </li>
               <li>
                 <a href="#" className="text-sm text-muted-foreground hover:text-synapse-cyan transition-colors">

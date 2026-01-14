@@ -1,4 +1,5 @@
 import { Layers, Brain, Users, ArrowRight } from 'lucide-react';
+import ScrollReveal from './ScrollReveal';
 
 const layers = [
   {
@@ -29,17 +30,19 @@ const layers = [
 
 const ArchitectureSection = () => {
   return (
-    <section className="relative py-32 px-6 bg-secondary/20">
+    <section id="arquitetura" className="relative py-32 px-6 bg-secondary/20">
       <div className="max-w-6xl mx-auto">
         {/* Section header */}
-        <div className="mb-16 text-center">
-          <span className="font-mono text-sm text-synapse-cyan tracking-wider uppercase">
-            // arquitetura
-          </span>
-          <h2 className="text-3xl md:text-4xl font-bold mt-4">
-            Três camadas. Um sistema.
-          </h2>
-        </div>
+        <ScrollReveal>
+          <div className="mb-16 text-center">
+            <span className="font-mono text-sm text-synapse-cyan tracking-wider uppercase">
+              // arquitetura
+            </span>
+            <h2 className="text-3xl md:text-4xl font-bold mt-4">
+              Três camadas. Um sistema.
+            </h2>
+          </div>
+        </ScrollReveal>
         
         {/* Architecture diagram */}
         <div className="relative">
@@ -49,75 +52,76 @@ const ArchitectureSection = () => {
           
           <div className="grid lg:grid-cols-3 gap-6">
             {layers.map((layer, index) => (
-              <div
-                key={index}
-                className="relative group"
-              >
-                {/* Layer card */}
-                <div className="h-full p-8 bg-card border border-border rounded-lg hover:border-synapse-cyan/30 transition-all duration-300">
-                  {/* Layer number */}
-                  <div className="flex items-center justify-between mb-6">
-                    <span className={`font-mono text-4xl font-bold text-${layer.color}/30`}>
-                      {layer.number}
-                    </span>
-                    <layer.icon className={`w-8 h-8 text-${layer.color}`} />
+              <ScrollReveal key={index} delay={index * 150} direction="up">
+                <div className="relative group h-full">
+                  {/* Layer card */}
+                  <div className="h-full p-8 bg-card border border-border rounded-lg hover:border-synapse-cyan/30 transition-all duration-300">
+                    {/* Layer number */}
+                    <div className="flex items-center justify-between mb-6">
+                      <span className={`font-mono text-4xl font-bold text-${layer.color}/30`}>
+                        {layer.number}
+                      </span>
+                      <layer.icon className={`w-8 h-8 text-${layer.color}`} />
+                    </div>
+                    
+                    {/* Title */}
+                    <h3 className="text-xl font-semibold mb-2">{layer.title}</h3>
+                    <p className="text-sm text-muted-foreground mb-6">{layer.subtitle}</p>
+                    
+                    {/* Items */}
+                    <ul className="space-y-3">
+                      {layer.items.map((item, i) => (
+                        <li key={i} className="flex items-center gap-3 text-sm">
+                          <span className={`w-1.5 h-1.5 rounded-full bg-${layer.color}`} />
+                          <span className="text-muted-foreground">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                   
-                  {/* Title */}
-                  <h3 className="text-xl font-semibold mb-2">{layer.title}</h3>
-                  <p className="text-sm text-muted-foreground mb-6">{layer.subtitle}</p>
-                  
-                  {/* Items */}
-                  <ul className="space-y-3">
-                    {layer.items.map((item, i) => (
-                      <li key={i} className="flex items-center gap-3 text-sm">
-                        <span className={`w-1.5 h-1.5 rounded-full bg-${layer.color}`} />
-                        <span className="text-muted-foreground">{item}</span>
-                      </li>
-                    ))}
-                  </ul>
+                  {/* Arrow for mobile */}
+                  {index < 2 && (
+                    <div className="lg:hidden flex justify-center my-4">
+                      <ArrowRight className="w-6 h-6 text-synapse-cyan/50 rotate-90" />
+                    </div>
+                  )}
                 </div>
-                
-                {/* Arrow for mobile */}
-                {index < 2 && (
-                  <div className="lg:hidden flex justify-center my-4">
-                    <ArrowRight className="w-6 h-6 text-synapse-cyan/50 rotate-90" />
-                  </div>
-                )}
-              </div>
+              </ScrollReveal>
             ))}
           </div>
         </div>
         
         {/* Flow visualization */}
-        <div className="mt-16 p-6 bg-card border border-border rounded-lg">
-          <div className="flex items-center justify-center gap-4 overflow-x-auto py-4">
-            <div className="flex items-center gap-3 px-4 py-2 bg-secondary rounded font-mono text-sm whitespace-nowrap">
-              <span className="w-2 h-2 rounded-full bg-synapse-grey" />
-              input
-            </div>
-            <ArrowRight className="w-4 h-4 text-muted-foreground flex-shrink-0" />
-            <div className="flex items-center gap-3 px-4 py-2 bg-secondary rounded font-mono text-sm whitespace-nowrap">
-              <span className="w-2 h-2 rounded-full bg-synapse-grey" />
-              validate
-            </div>
-            <ArrowRight className="w-4 h-4 text-muted-foreground flex-shrink-0" />
-            <div className="flex items-center gap-3 px-4 py-2 bg-secondary rounded font-mono text-sm whitespace-nowrap">
-              <span className="w-2 h-2 rounded-full bg-synapse-cyan animate-pulse-glow" />
-              agent.process()
-            </div>
-            <ArrowRight className="w-4 h-4 text-muted-foreground flex-shrink-0" />
-            <div className="flex items-center gap-3 px-4 py-2 bg-secondary rounded font-mono text-sm whitespace-nowrap">
-              <span className="w-2 h-2 rounded-full bg-synapse-cyan" />
-              evaluate
-            </div>
-            <ArrowRight className="w-4 h-4 text-muted-foreground flex-shrink-0" />
-            <div className="flex items-center gap-3 px-4 py-2 bg-secondary rounded font-mono text-sm whitespace-nowrap">
-              <span className="w-2 h-2 rounded-full bg-synapse-amber" />
-              output
+        <ScrollReveal delay={500}>
+          <div className="mt-16 p-6 bg-card border border-border rounded-lg">
+            <div className="flex items-center justify-center gap-4 overflow-x-auto py-4">
+              <div className="flex items-center gap-3 px-4 py-2 bg-secondary rounded font-mono text-sm whitespace-nowrap">
+                <span className="w-2 h-2 rounded-full bg-synapse-grey" />
+                input
+              </div>
+              <ArrowRight className="w-4 h-4 text-muted-foreground flex-shrink-0" />
+              <div className="flex items-center gap-3 px-4 py-2 bg-secondary rounded font-mono text-sm whitespace-nowrap">
+                <span className="w-2 h-2 rounded-full bg-synapse-grey" />
+                validate
+              </div>
+              <ArrowRight className="w-4 h-4 text-muted-foreground flex-shrink-0" />
+              <div className="flex items-center gap-3 px-4 py-2 bg-secondary rounded font-mono text-sm whitespace-nowrap">
+                <span className="w-2 h-2 rounded-full bg-synapse-cyan animate-pulse-glow" />
+                agent.process()
+              </div>
+              <ArrowRight className="w-4 h-4 text-muted-foreground flex-shrink-0" />
+              <div className="flex items-center gap-3 px-4 py-2 bg-secondary rounded font-mono text-sm whitespace-nowrap">
+                <span className="w-2 h-2 rounded-full bg-synapse-cyan" />
+                evaluate
+              </div>
+              <ArrowRight className="w-4 h-4 text-muted-foreground flex-shrink-0" />
+              <div className="flex items-center gap-3 px-4 py-2 bg-secondary rounded font-mono text-sm whitespace-nowrap">
+                <span className="w-2 h-2 rounded-full bg-synapse-amber" />
+                output
+              </div>
             </div>
           </div>
-        </div>
+        </ScrollReveal>
       </div>
     </section>
   );
