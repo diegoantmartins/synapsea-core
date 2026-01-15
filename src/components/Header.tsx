@@ -6,8 +6,9 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const navItems = [
-  { id: 'arquitetura', label: 'Arquitetura' },
-  { id: 'modulos', label: 'Módulos' },
+  { id: 'arquitetura', label: 'Como funciona' },
+  { id: 'modulos', label: 'Soluções' },
+  { id: 'resultados', label: 'Resultados' },
 ];
 
 const Header = () => {
