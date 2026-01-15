@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, ChevronRight, Terminal, Layers, Brain, Users, Settings, Code, FileCode, Database, Zap } from 'lucide-react';
+import { ArrowLeft, ChevronRight, Terminal, MessageSquare, Wallet, Target, Database, Zap, Shield, BarChart3, Headphones } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import CircuitBackground from '@/components/CircuitBackground';
@@ -13,512 +13,265 @@ const docSections = [
     title: 'Visão Geral',
     content: `# Synapsea Platform
 
-A Synapsea é uma plataforma de orquestração de agentes de IA construída sobre três princípios fundamentais:
+A Synapsea é uma plataforma de agentes de IA que resolve problemas reais do seu negócio:
 
-1. **Determinismo** - Fluxos previsíveis e auditáveis
-2. **Observabilidade** - Decisões rastreáveis em tempo real
-3. **Controle** - Limites claros e escalonamento humano
+1. **Atendimento 24/7** - Seus clientes nunca ficam sem resposta
+2. **Escala inteligente** - Transferência para humanos quando necessário
+3. **Resultados mensuráveis** - Métricas claras de performance
 
-## Quick Start
+## Por que Synapsea?
 
-\`\`\`bash
-# Instalar CLI
-npm install -g @synapsea/cli
+- Redução de até **80%** no tempo de resposta
+- Aumento de **3x** na eficiência da equipe
+- Satisfação do cliente acima de **90%**
 
-# Inicializar projeto
-synapsea init my-agent
+## Como começar
 
-# Configurar ambiente
-cd my-agent && synapsea config
-\`\`\`
+Entre em contato com nossa equipe. Analisamos sua operação e projetamos a solução ideal para seu negócio.
 
-## Requisitos
-
-- Node.js 18+
-- n8n (self-hosted ou cloud)
-- API keys dos LLMs desejados`,
+Sem custos ocultos. Sem complexidade desnecessária.`,
   },
   {
-    id: 'architecture',
-    icon: Layers,
-    title: 'Arquitetura',
-    content: `# Arquitetura de Camadas
+    id: 'atendimento',
+    icon: Headphones,
+    title: 'Atendimento',
+    content: `# Atendimento Automatizado
 
-A Synapsea opera em três camadas distintas:
+Transforme seu atendimento ao cliente com agentes de IA que entendem, resolvem e escalam.
 
-## Camada 1: Determinística
+## O que resolvemos
 
-\`\`\`yaml
-# flow.config.yaml
-name: customer_intake
-trigger: webhook
-steps:
-  - validate_input
-  - enrich_data
-  - route_to_agent
-fallback: human_queue
-\`\`\`
+- Filas de espera intermináveis
+- Clientes frustrados esperando respostas
+- Equipe sobrecarregada com perguntas repetitivas
 
-Esta camada garante:
-- Execução previsível
-- Logs completos
-- Rollback automático
+## Como funciona
 
-## Camada 2: Inteligência Assistida
+1. Cliente entra em contato por qualquer canal
+2. Agente identifica a intenção e contexto
+3. Resolve automaticamente ou transfere com todo histórico
 
-\`\`\`typescript
-// agent.config.ts
-export const config = {
-  model: "gpt-4-turbo",
-  temperature: 0.3,
-  max_tokens: 2000,
-  confidence_threshold: 0.85,
-  prompt_version: "v2.3.1"
-}
-\`\`\`
+## Resultados esperados
 
-## Camada 3: Orquestração Cognitiva
+| Métrica | Antes | Depois |
+|---------|-------|--------|
+| Tempo médio de resposta | 4 horas | 30 segundos |
+| Taxa de resolução | 40% | 85% |
+| Satisfação | 3.2/5 | 4.7/5 |
 
-\`\`\`typescript
-// orchestrator.ts
-const agents = [
-  { role: "classifier", priority: 1 },
-  { role: "responder", priority: 2 },
-  { role: "validator", priority: 3 }
-];
+## Diferenciais
 
-orchestrator.run(agents, {
-  consensus: "majority",
-  escalation: "confidence < 0.7"
-});
-\`\`\``,
+- Respostas personalizadas baseadas no histórico
+- Integração com seus sistemas existentes
+- Transferência suave para humanos quando necessário`,
   },
   {
-    id: 'agents',
-    icon: Brain,
-    title: 'Agentes',
-    content: `# Configuração de Agentes
+    id: 'cobranca',
+    icon: Wallet,
+    title: 'Cobrança',
+    content: `# Cobrança Inteligente
 
-## Definindo um Agente
+Recupere mais com menos esforço. Abordagem personalizada para cada cliente.
 
-\`\`\`typescript
-// agents/customer-support.ts
-import { Agent } from '@synapsea/core';
+## O problema
 
-export const supportAgent = new Agent({
-  name: 'customer_support',
-  model: 'gpt-4-turbo',
-  
-  // Limites de confiança
-  confidence: {
-    threshold: 0.85,
-    action_below: 'escalate'
-  },
-  
-  // Contexto controlado
-  context: {
-    source: 'rag',
-    max_tokens: 4000,
-    refresh: 'session'
-  },
-  
-  // Comportamento
-  behavior: {
-    tone: 'professional',
-    language: 'pt-BR',
-    max_turns: 10
-  }
-});
-\`\`\`
+- Cobrança manual é lenta e custosa
+- Abordagem genérica gera conflitos
+- Difícil escalar sem perder qualidade
 
-## Estados do Agente
+## A solução Synapsea
 
-| Estado | Descrição | Ação |
-|--------|-----------|------|
-| READY | Pronto para processar | - |
-| PROCESSING | Em execução | Monitor |
-| LOW_CONFIDENCE | Abaixo do threshold | Escalar |
-| ESCALATED | Transferido | Humano |
+Agentes que entendem o contexto do cliente:
 
-## Métricas Disponíveis
+- **Histórico de pagamentos** - Sabe quem é bom pagador
+- **Tom adaptativo** - Ajusta comunicação ao perfil
+- **Negociação inteligente** - Propõe acordos viáveis
 
-\`\`\`typescript
-agent.metrics.get({
-  confidence_avg: true,
-  escalation_rate: true,
-  response_time_p95: true,
-  token_usage: true
-});
-\`\`\``,
+## Resultados
+
+- **3x** mais eficiência na recuperação
+- **50%** menos conflitos com clientes
+- **ROI positivo** no primeiro mês
+
+## Funcionalidades
+
+- Contato multicanal (WhatsApp, SMS, Email)
+- Lembretes automatizados
+- Propostas de acordo personalizadas
+- Relatórios de performance`,
   },
   {
-    id: 'orchestration',
-    icon: Users,
-    title: 'Orquestração',
-    content: `# Orquestração Multi-Agente
+    id: 'vendas',
+    icon: Target,
+    title: 'Qualificação',
+    content: `# Qualificação de Leads
 
-## Pipeline de Agentes
+Identifique os melhores leads automaticamente. Foque energia onde importa.
 
-\`\`\`typescript
-// pipelines/support.ts
-import { Pipeline } from '@synapsea/orchestrator';
+## O desafio
 
-const supportPipeline = new Pipeline({
-  name: 'customer_support_v2',
-  
-  stages: [
-    {
-      agent: 'classifier',
-      output: 'intent',
-      timeout: 5000
-    },
-    {
-      agent: 'router',
-      input: 'intent',
-      output: 'destination'
-    },
-    {
-      agent: 'responder',
-      condition: 'destination === "auto"',
-      fallback: 'human_queue'
-    }
-  ],
-  
-  consensus: {
-    type: 'confidence_weighted',
-    min_agreement: 0.8
-  }
-});
-\`\`\`
+Sua equipe comercial perde tempo com:
 
-## Escalonamento
+- Leads que não estão prontos
+- Informações incompletas
+- Priorização manual e subjetiva
 
-\`\`\`yaml
-# escalation.config.yaml
-rules:
-  - condition: confidence < 0.7
-    action: escalate_to_human
-    priority: high
-    
-  - condition: sentiment === "angry"
-    action: escalate_to_supervisor
-    priority: critical
-    
-  - condition: attempts > 3
-    action: transfer_to_specialist
-    context: full_history
-\`\`\``,
+## Como resolvemos
+
+O agente Synapsea:
+
+1. **Captura** - Coleta informações de forma natural
+2. **Qualifica** - Pontua baseado em critérios do seu negócio
+3. **Prioriza** - Entrega os melhores leads primeiro
+
+## Impacto
+
+| Antes | Depois |
+|-------|--------|
+| 100 leads/dia para analisar | 20 leads qualificados/dia |
+| 5% de conversão | 23% de conversão |
+| 2h por fechamento | 45min por fechamento |
+
+## Integração
+
+Conecta com seu CRM existente. Seus vendedores recebem leads prontos com todas as informações.`,
   },
   {
-    id: 'n8n',
-    icon: Zap,
-    title: 'Integração n8n',
-    content: `# Integração com n8n
-
-## Configurando Webhook
-
-\`\`\`typescript
-// n8n/webhook.ts
-import { N8nIntegration } from '@synapsea/n8n';
-
-const n8n = new N8nIntegration({
-  baseUrl: process.env.N8N_URL,
-  apiKey: process.env.N8N_API_KEY
-});
-
-// Registrar webhook
-await n8n.registerWebhook({
-  path: '/synapsea/intake',
-  method: 'POST',
-  workflow: 'customer_intake'
-});
-\`\`\`
-
-## Workflow Template
-
-\`\`\`json
-{
-  "name": "Synapsea Customer Intake",
-  "nodes": [
-    {
-      "type": "webhook",
-      "parameters": {
-        "path": "synapsea/intake"
-      }
-    },
-    {
-      "type": "synapsea/agent",
-      "parameters": {
-        "agent": "classifier",
-        "timeout": 10000
-      }
-    },
-    {
-      "type": "switch",
-      "parameters": {
-        "rules": [
-          { "output": "auto", "condition": "confidence >= 0.85" },
-          { "output": "human", "condition": "confidence < 0.85" }
-        ]
-      }
-    }
-  ]
-}
-\`\`\``,
-  },
-  {
-    id: 'rag',
+    id: 'conhecimento',
     icon: Database,
-    title: 'RAG & Memória',
-    content: `# RAG e Gestão de Memória
+    title: 'Base de Conhecimento',
+    content: `# Base de Conhecimento Viva
 
-## Configurando RAG
+Agentes que aprendem com cada interação. Respostas cada vez mais precisas.
 
-\`\`\`typescript
-// rag/config.ts
-import { RAG } from '@synapsea/rag';
+## O problema comum
 
-const ragConfig = new RAG({
-  // Fonte de dados
-  sources: [
-    { type: 'postgres', connection: process.env.DB_URL },
-    { type: 'notion', token: process.env.NOTION_TOKEN }
-  ],
-  
-  // Embeddings
-  embeddings: {
-    model: 'text-embedding-3-small',
-    dimensions: 1536
-  },
-  
-  // Retrieval
-  retrieval: {
-    top_k: 5,
-    threshold: 0.75,
-    rerank: true
-  }
-});
-\`\`\`
+- FAQs desatualizados
+- Informação espalhada em vários lugares
+- Respostas inconsistentes entre atendentes
 
-## Gestão de Memória
+## A solução
 
-\`\`\`typescript
-// memory/session.ts
-const sessionMemory = new Memory({
-  type: 'session',
-  
-  // Limites
-  max_turns: 20,
-  max_tokens: 8000,
-  
-  // Persistência
-  persistence: {
-    driver: 'redis',
-    ttl: 3600
-  },
-  
-  // Auditoria
-  audit: {
-    enabled: true,
-    log_level: 'detailed'
-  }
-});
-\`\`\``,
+Uma base de conhecimento que:
+
+- **Aprende** com cada atendimento
+- **Atualiza** automaticamente
+- **Padroniza** respostas
+
+## Como funciona
+
+1. Conectamos suas fontes de informação
+2. Agente usa o conhecimento para responder
+3. Supervisores validam e melhoram
+4. Base evolui continuamente
+
+## Benefícios
+
+- **90%** de precisão nas respostas
+- Informação sempre atualizada
+- Menos retrabalho da equipe`,
   },
   {
-    id: 'observability',
-    icon: Code,
-    title: 'Observabilidade',
-    content: `# Observabilidade e Auditoria
+    id: 'integracao',
+    icon: Zap,
+    title: 'Integrações',
+    content: `# Integrações
 
-## Dashboard de Métricas
+Synapsea conecta com os sistemas que você já usa.
 
-\`\`\`typescript
-// observability/metrics.ts
-import { Metrics } from '@synapsea/observe';
+## Canais de Atendimento
 
-const dashboard = new Metrics({
-  agents: ['classifier', 'responder', 'validator'],
-  
-  collect: {
-    confidence_distribution: true,
-    latency_percentiles: [50, 95, 99],
-    token_usage: true,
-    escalation_rate: true
+- WhatsApp Business
+- Instagram Direct
+- Facebook Messenger
+- Chat no site
+- Email
+- Telefone (URA inteligente)
+
+## CRMs e ERPs
+
+- Salesforce
+- HubSpot
+- Pipedrive
+- RD Station
+- Sistemas próprios via API
+
+## Outras Integrações
+
+- Google Sheets / Excel
+- Slack / Microsoft Teams
+- Sistemas de cobrança
+- Plataformas de e-commerce
+
+## API Aberta
+
+Para integrações customizadas, oferecemos API RESTful completa com documentação.`,
   },
-  
-  export: {
-    prometheus: true,
-    grafana: true,
-    custom_webhook: process.env.METRICS_WEBHOOK
-  }
-});
-\`\`\`
+  {
+    id: 'seguranca',
+    icon: Shield,
+    title: 'Segurança',
+    content: `# Segurança e Privacidade
 
-## Logs Estruturados
+Seus dados protegidos com os mais altos padrões.
 
-\`\`\`json
-{
-  "timestamp": "2024-01-15T10:30:00Z",
-  "agent": "classifier",
-  "session": "abc-123",
-  "input_hash": "sha256:...",
-  "output": {
-    "intent": "billing_inquiry",
-    "confidence": 0.92
+## Conformidade
+
+- **LGPD** - 100% compatível
+- **SOC 2** - Certificação em andamento
+- **Criptografia** - Dados em trânsito e em repouso
+
+## Controle de Acesso
+
+- Autenticação multifator
+- Níveis de permissão granulares
+- Logs de auditoria completos
+
+## Privacidade
+
+- Dados processados no Brasil
+- Sem compartilhamento com terceiros
+- Exclusão sob demanda
+
+## SLA
+
+- **99.9%** de uptime garantido
+- Suporte prioritário
+- Backup contínuo`,
   },
-  "latency_ms": 245,
-  "tokens": {
-    "input": 150,
-    "output": 45
-  }
-}
-\`\`\`
+  {
+    id: 'metricas',
+    icon: BarChart3,
+    title: 'Métricas',
+    content: `# Dashboard de Métricas
+
+Visibilidade total da operação. Decisões baseadas em dados.
+
+## Métricas de Atendimento
+
+- Volume de atendimentos por canal
+- Tempo médio de resposta
+- Taxa de resolução automática
+- Satisfação do cliente (NPS/CSAT)
+
+## Métricas de Performance
+
+- Taxa de escalonamento para humanos
+- Motivos de escalonamento
+- Performance por agente
+- Tendências ao longo do tempo
+
+## Relatórios
+
+- Relatórios diários automáticos
+- Exportação para Excel/PDF
+- Integração com BI existente
 
 ## Alertas
 
-\`\`\`yaml
-# alerts.config.yaml
-rules:
-  - name: low_confidence_spike
-    condition: avg(confidence) < 0.7 for 5m
-    severity: warning
-    notify: [slack, email]
-    
-  - name: high_latency
-    condition: p95(latency) > 5000ms
-    severity: critical
-    notify: [pagerduty]
-\`\`\``,
-  },
-  {
-    id: 'api',
-    icon: FileCode,
-    title: 'API Reference',
-    content: `# API Reference
-
-## Endpoints Principais
-
-### POST /api/v1/agents/{agent}/invoke
-
-Invoca um agente específico.
-
-\`\`\`bash
-curl -X POST https://api.synapsea.io/v1/agents/classifier/invoke \\
-  -H "Authorization: Bearer $API_KEY" \\
-  -H "Content-Type: application/json" \\
-  -d '{
-    "input": "Preciso de ajuda com minha fatura",
-    "session_id": "abc-123",
-    "context": {
-      "customer_id": "cust_456"
-    }
-  }'
-\`\`\`
-
-**Response:**
-
-\`\`\`json
-{
-  "id": "inv_789",
-  "agent": "classifier",
-  "output": {
-    "intent": "billing_inquiry",
-    "sub_intent": "invoice_question",
-    "confidence": 0.94
-  },
-  "metadata": {
-    "latency_ms": 312,
-    "tokens_used": 195,
-    "model": "gpt-4-turbo"
-  }
-}
-\`\`\`
-
-### GET /api/v1/sessions/{session_id}
-
-Recupera histórico de sessão.
-
-### POST /api/v1/pipelines/{pipeline}/run
-
-Executa um pipeline completo.
-
-## Rate Limits
-
-| Plano | Requests/min | Tokens/dia |
-|-------|--------------|------------|
-| Starter | 60 | 100k |
-| Pro | 300 | 1M |
-| Enterprise | Custom | Custom |`,
-  },
-  {
-    id: 'config',
-    icon: Settings,
-    title: 'Configuração',
-    content: `# Configuração Avançada
-
-## Variáveis de Ambiente
-
-\`\`\`bash
-# .env.production
-SYNAPSEA_API_KEY=sk_live_...
-SYNAPSEA_ENV=production
-
-# LLM Providers
-OPENAI_API_KEY=sk-...
-ANTHROPIC_API_KEY=sk-ant-...
-
-# n8n Integration
-N8N_URL=https://n8n.yourcompany.com
-N8N_API_KEY=...
-
-# Observability
-PROMETHEUS_ENDPOINT=...
-GRAFANA_API_KEY=...
-
-# Database
-DATABASE_URL=postgresql://...
-REDIS_URL=redis://...
-\`\`\`
-
-## synapsea.config.ts
-
-\`\`\`typescript
-import { defineConfig } from '@synapsea/config';
-
-export default defineConfig({
-  // Projeto
-  project: {
-    name: 'my-company-agents',
-    version: '2.1.0'
-  },
-  
-  // Defaults globais
-  defaults: {
-    model: 'gpt-4-turbo',
-    temperature: 0.3,
-    max_tokens: 2000,
-    timeout: 30000
-  },
-  
-  // Segurança
-  security: {
-    rate_limit: {
-      requests_per_minute: 100,
-      tokens_per_day: 500000
-    },
-    ip_whitelist: ['10.0.0.0/8'],
-    audit_retention_days: 90
-  },
-  
-  // Integrações
-  integrations: {
-    n8n: { enabled: true },
-    slack: { enabled: true },
-    prometheus: { enabled: true }
-  }
-});
-\`\`\``,
+- Notificações em tempo real
+- Alertas de anomalias
+- Monitoramento 24/7`,
   },
 ];
 
@@ -613,10 +366,12 @@ const DocsPage = () => {
 
       // Lists
       if (line.startsWith('- ')) {
+        const formattedItem = line.slice(2)
+          .replace(/\*\*(.+?)\*\*/g, '<strong class="text-foreground">$1</strong>');
         return (
           <li key={index} className="flex items-start gap-2 text-muted-foreground mb-1">
             <span className="w-1.5 h-1.5 rounded-full bg-synapse-cyan mt-2 flex-shrink-0" />
-            {line.slice(2)}
+            <span dangerouslySetInnerHTML={{ __html: formattedItem }} />
           </li>
         );
       }
@@ -676,7 +431,7 @@ const DocsPage = () => {
             </div>
             <div className="flex items-center gap-2 font-mono text-xs text-muted-foreground">
               <span className="w-2 h-2 rounded-full bg-synapse-cyan animate-pulse-glow" />
-              v2.1.0
+              Documentação
             </div>
           </div>
         </header>
@@ -745,9 +500,9 @@ const DocsPage = () => {
                       </span>
                     </div>
                     <div className="flex items-center gap-2 text-xs text-muted-foreground font-mono">
-                      <span>UTF-8</span>
+                      <span>Synapsea</span>
                       <span>|</span>
-                      <span>Markdown</span>
+                      <span>Docs</span>
                     </div>
                   </div>
                 </div>

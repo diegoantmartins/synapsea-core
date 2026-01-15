@@ -32,8 +32,9 @@ const HeroSection = () => {
         {/* Subheadline */}
         <ScrollReveal delay={200}>
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed">
-            Synapsea conecta infraestrutura determinística — n8n, APIs, dados — 
-            com agentes de IA que operam sob <span className="text-synapse-cyan">regras</span>, <span className="text-synapse-cyan">limites</span> e <span className="text-synapse-cyan">observabilidade</span>.
+            Agentes de IA que <span className="text-synapse-cyan">resolvem</span> problemas reais, 
+            <span className="text-synapse-cyan"> escalam</span> quando necessário e 
+            <span className="text-synapse-cyan"> nunca</span> deixam seu cliente sem resposta.
           </p>
         </ScrollReveal>
         

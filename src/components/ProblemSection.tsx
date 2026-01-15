@@ -4,18 +4,18 @@ import ScrollReveal from './ScrollReveal';
 const problems = [
   {
     icon: HelpCircle,
-    title: 'Confusão entre IA e improviso',
-    description: 'O mercado trata LLMs como caixas mágicas. Sem estrutura, cada resposta é imprevisível.'
+    title: 'Clientes esperando respostas',
+    description: 'Filas intermináveis, demora no atendimento, clientes frustrados que vão embora.'
   },
   {
     icon: Eye,
-    title: 'Automações opacas',
-    description: 'Fluxos que funcionam até falharem. Sem logs, sem rastreabilidade, sem confiança.'
+    title: 'Equipe sobrecarregada',
+    description: 'Tarefas repetitivas consomem tempo precioso que poderia ir para casos complexos.'
   },
   {
     icon: AlertTriangle,
-    title: 'Incerteza operacional',
-    description: 'Quando confiar? Quando intervir? A maioria dos sistemas não responde isso.'
+    title: 'Oportunidades perdidas',
+    description: 'Leads esfriando, cobranças atrasadas, informações que não chegam na hora certa.'
   }
 ];
 
@@ -27,12 +27,12 @@ const ProblemSection = () => {
         <ScrollReveal>
           <div className="mb-16">
             <span className="font-mono text-sm text-synapse-cyan tracking-wider uppercase">
-              // diagnóstico
+              // o desafio
             </span>
             <h2 className="text-3xl md:text-4xl font-bold mt-4 mb-6">
-              O problema não é a IA.
+              Sua operação tem gargalos.
               <br />
-              <span className="text-muted-foreground">É a ausência de arquitetura.</span>
+              <span className="text-muted-foreground">Nós automatizamos a solução.</span>
             </h2>
           </div>
         </ScrollReveal>

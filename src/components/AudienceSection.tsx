@@ -2,16 +2,16 @@ import { Check, X } from 'lucide-react';
 import ScrollReveal from './ScrollReveal';
 
 const forWho = [
-  'Arquitetos de sistemas que exigem previsibilidade',
-  'Times técnicos que precisam auditar decisões',
-  'Empresas que não aceitam caixas-pretas',
-  'Operações que escalam com controle'
+  'Empresas que querem escalar atendimento sem perder qualidade',
+  'Operações que precisam reduzir custos mantendo excelência',
+  'Times que querem focar no que realmente importa',
+  'Negócios que valorizam cada cliente'
 ];
 
 const notForWho = [
-  'Quem busca "chatbot rápido"',
-  'Projetos sem estrutura de dados',
-  'Times que evitam complexidade técnica'
+  'Quem busca soluções genéricas',
+  'Empresas sem processos definidos',
+  'Projetos sem comprometimento'
 ];
 
 const AudienceSection = () => {
@@ -22,10 +22,12 @@ const AudienceSection = () => {
         <ScrollReveal>
           <div className="mb-16 text-center">
             <span className="font-mono text-sm text-synapse-cyan tracking-wider uppercase">
-              // público
+              // para quem é
             </span>
             <h2 className="text-3xl md:text-4xl font-bold mt-4">
-              Construído para quem entende.
+              Empresas que querem crescer.
+              <br />
+              <span className="text-muted-foreground">Com inteligência.</span>
             </h2>
           </div>
         </ScrollReveal>

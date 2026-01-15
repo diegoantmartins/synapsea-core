@@ -5,25 +5,25 @@ const layers = [
   {
     number: '01',
     icon: Layers,
-    title: 'Camada Determinística',
-    subtitle: 'Previsível. Auditável.',
-    items: ['Fluxos n8n', 'Regras de negócio', 'Eventos e webhooks', 'Dados estruturados'],
+    title: 'Entende o problema',
+    subtitle: 'Coleta. Classifica. Prioriza.',
+    items: ['Captura de intenção', 'Análise de contexto', 'Histórico do cliente', 'Urgência identificada'],
     color: 'synapse-grey'
   },
   {
     number: '02',
     icon: Brain,
-    title: 'Inteligência Assistida',
-    subtitle: 'LLMs sob controle.',
-    items: ['Prompts como código', 'Limites de confiança', 'Decisões rastreáveis', 'Contexto controlado'],
+    title: 'Resolve automaticamente',
+    subtitle: 'IA treinada no seu negócio.',
+    items: ['Respostas personalizadas', 'Ações automatizadas', 'Integração com seus sistemas', 'Atualização em tempo real'],
     color: 'synapse-cyan'
   },
   {
     number: '03',
     icon: Users,
-    title: 'Orquestração Cognitiva',
-    subtitle: 'Agentes cooperando.',
-    items: ['Múltiplos agentes', 'Estados de confiança', 'Escalonamento humano', 'Memória compartilhada'],
+    title: 'Escala com inteligência',
+    subtitle: 'Humano quando faz sentido.',
+    items: ['Transferência contextual', 'Priorização inteligente', 'Sem perda de informação', 'Supervisão ativa'],
     color: 'synapse-amber'
   }
 ];
@@ -36,10 +36,12 @@ const ArchitectureSection = () => {
         <ScrollReveal>
           <div className="mb-16 text-center">
             <span className="font-mono text-sm text-synapse-cyan tracking-wider uppercase">
-              // arquitetura
+              // como funciona
             </span>
             <h2 className="text-3xl md:text-4xl font-bold mt-4">
-              Três camadas. Um sistema.
+              Do problema à solução.
+              <br />
+              <span className="text-muted-foreground">Sem fricção.</span>
             </h2>
           </div>
         </ScrollReveal>

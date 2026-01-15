@@ -4,42 +4,42 @@ import ScrollReveal from './ScrollReveal';
 const useCases = [
   {
     icon: MessageSquare,
-    module: 'atendimento.agent',
-    title: 'Atendimento com Fallback Humano',
-    description: 'Agente processa até o limite de confiança. Escala automaticamente para operador quando necessário.',
-    config: {
-      mode: '"hybrid"',
-      escalation: 'confidence < 0.7'
+    module: 'atendimento',
+    title: 'Atendimento 24/7',
+    description: 'Responda clientes a qualquer hora. Resolva dúvidas instantaneamente. Escale para humanos só quando necessário.',
+    results: {
+      metric: '80%',
+      label: 'dos atendimentos resolvidos sem intervenção'
     }
   },
   {
     icon: Wallet,
-    module: 'cobranca.agent',
-    title: 'Cobrança Contextual',
-    description: 'Análise de histórico, tom adaptativo, decisões baseadas em contexto do cliente.',
-    config: {
-      context: '"full_history"',
-      tone: 'adaptive'
+    module: 'cobrança',
+    title: 'Cobrança Inteligente',
+    description: 'Abordagem personalizada para cada cliente. Tom adaptativo. Mais acordos, menos desgaste.',
+    results: {
+      metric: '3x',
+      label: 'mais eficiência na recuperação de dívidas'
     }
   },
   {
     icon: Target,
-    module: 'routing.agent',
-    title: 'Qualificação por Intenção',
-    description: 'Classificação de leads em tempo real. Roteamento baseado em intenção detectada.',
-    config: {
-      classifier: '"intent_v2"',
-      routes: '["sales", "support", "info"]'
+    module: 'vendas',
+    title: 'Qualificação de Leads',
+    description: 'Identifique os melhores leads automaticamente. Priorize quem está pronto para comprar.',
+    results: {
+      metric: '45%',
+      label: 'mais conversões com leads qualificados'
     }
   },
   {
     icon: Database,
-    module: 'knowledge.agent',
-    title: 'Agentes com Memória',
-    description: 'RAG controlado. Memória persistente. Contexto limitado e auditável.',
-    config: {
-      rag: 'enabled',
-      memory: '"session_scoped"'
+    module: 'suporte',
+    title: 'Base de Conhecimento Viva',
+    description: 'Agentes que aprendem com cada interação. Respostas cada vez mais precisas.',
+    results: {
+      metric: '90%',
+      label: 'de satisfação nas respostas automáticas'
     }
   }
 ];
@@ -52,14 +52,13 @@ const UseCasesSection = () => {
         <ScrollReveal>
           <div className="mb-16">
             <span className="font-mono text-sm text-synapse-cyan tracking-wider uppercase">
-              // módulos
+              // soluções
             </span>
             <h2 className="text-3xl md:text-4xl font-bold mt-4 mb-6">
-              Sistemas, não features.
+              Resultados reais.
+              <br />
+              <span className="text-muted-foreground">Não promessas.</span>
             </h2>
-            <p className="text-muted-foreground max-w-2xl">
-              Cada caso de uso é um módulo configurável. Regras claras. Comportamento previsível.
-            </p>
           </div>
         </ScrollReveal>
         
@@ -74,7 +73,7 @@ const UseCasesSection = () => {
                     <div className="p-2 bg-secondary rounded">
                       <useCase.icon className="w-5 h-5 text-synapse-cyan" />
                     </div>
-                    <span className="font-mono text-sm text-muted-foreground">
+                    <span className="font-mono text-sm text-muted-foreground uppercase tracking-wider">
                       {useCase.module}
                     </span>
                   </div>
@@ -86,16 +85,14 @@ const UseCasesSection = () => {
                   {useCase.description}
                 </p>
                 
-                {/* Config preview */}
-                <div className="bg-secondary/50 rounded p-4 font-mono text-xs">
-                  <div className="text-muted-foreground mb-2">// config</div>
-                  {Object.entries(useCase.config).map(([key, value]) => (
-                    <div key={key}>
-                      <span className="text-synapse-amber">{key}</span>
-                      <span className="text-muted-foreground">: </span>
-                      <span className="text-synapse-cyan">{value}</span>
-                    </div>
-                  ))}
+                {/* Results highlight */}
+                <div className="bg-secondary/50 rounded p-4 border-l-2 border-synapse-cyan">
+                  <div className="text-3xl font-bold text-synapse-cyan mb-1">
+                    {useCase.results.metric}
+                  </div>
+                  <div className="text-sm text-muted-foreground">
+                    {useCase.results.label}
+                  </div>
                 </div>
               </div>
             </ScrollReveal>
