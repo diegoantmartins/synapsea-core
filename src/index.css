@@ -46,6 +46,7 @@
     --cyan: 176 95% 69%;
     --grey: 210 2% 78%;
     --amber: 340 65% 81%;
+    --code: 174 42% 51%;
     
     /* Gradients */
     --gradient-glow: radial-gradient(ellipse at center, hsl(176 95% 69% / 0.15) 0%, transparent 70%);
@@ -53,6 +54,7 @@
     
     /* Shadows */
     --shadow-glow: 0 0 30px hsl(176 95% 69% / 0.2);
+    --shadow-glow-intense: 0 0 40px hsl(176 95% 69% / 0.4);
     --shadow-deep: 0 4px 24px hsl(210 18% 2% / 0.8);
   }
 

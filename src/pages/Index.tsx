@@ -1,11 +1,8 @@
 import CircuitBackground from '@/components/CircuitBackground';
 import Header from '@/components/Header';
 import HeroSection from '@/components/HeroSection';
-import ProblemSection from '@/components/ProblemSection';
-import ArchitectureSection from '@/components/ArchitectureSection';
-import UseCasesSection from '@/components/UseCasesSection';
-import TestimonialsSection from '@/components/TestimonialsSection';
-import AudienceSection from '@/components/AudienceSection';
+import AgentsSection from '@/components/AgentsSection';
+import WhyConnectSection from '@/components/WhyConnectSection';
 import CTASection from '@/components/CTASection';
 import Footer from '@/components/Footer';
 
@@ -20,11 +17,8 @@ const Index = () => {
         <Header />
         <main>
           <HeroSection />
-          <ProblemSection />
-          <ArchitectureSection />
-          <UseCasesSection />
-          <TestimonialsSection />
-          <AudienceSection />
+          <AgentsSection />
+          <WhyConnectSection />
           <CTASection />
         </main>
         <Footer />
