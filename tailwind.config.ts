@@ -58,6 +58,7 @@ export default {
           cyan: "hsl(var(--cyan))",
           grey: "hsl(var(--grey))",
           amber: "hsl(var(--amber))",
+          code: "hsl(var(--code))",
         },
       },
       borderRadius: {

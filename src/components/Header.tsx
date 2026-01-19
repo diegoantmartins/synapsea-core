@@ -7,9 +7,9 @@ import { Link } from 'react-router-dom';
 import AnimatedLogo from './AnimatedLogo';
 
 const navItems = [
-  { id: 'arquitetura', label: 'Como funciona' },
-  { id: 'modulos', label: 'Soluções' },
-  { id: 'resultados', label: 'Resultados' },
+  { id: 'agentes', label: 'Agentes' },
+  { id: 'porque', label: 'Por que Connect+' },
+  { id: 'contato', label: 'Contato' },
 ];
 
 const Header = () => {
@@ -34,7 +34,10 @@ const Header = () => {
           }}
         >
           <AnimatedLogo size={36} />
-          <span className="font-semibold text-lg tracking-tight">Synapsea</span>
+          <div className="flex items-baseline gap-1">
+            <span className="font-semibold text-lg tracking-tight text-foreground">Synapsea</span>
+            <span className="font-mono text-sm text-synapse-cyan">[Connect+]</span>
+          </div>
         </a>
         
         {/* Desktop Navigation */}
@@ -69,9 +72,9 @@ const Header = () => {
           <Button 
             variant="synapseOutline" 
             size="sm"
-            onClick={() => handleNavClick('contato')}
+            className="font-mono"
           >
-            Contato
+            LOGIN_SYSTEM
           </Button>
         </div>
 
@@ -116,10 +119,9 @@ const Header = () => {
             <Button 
               variant="synapseOutline" 
               size="sm"
-              onClick={() => handleNavClick('contato')}
-              className="mt-2"
+              className="mt-2 font-mono"
             >
-              Contato
+              LOGIN_SYSTEM
             </Button>
           </nav>
         </div>
