@@ -59,6 +59,52 @@ This project is built with:
 - React
 - shadcn-ui
 - Tailwind CSS
+- Supabase
+
+## Supabase setup (leads)
+
+Create a `leads` table in Supabase with the fields below:
+
+```sql
+create table if not exists public.leads (
+  id uuid primary key default gen_random_uuid(),
+  name text not null,
+  email text not null,
+  company text,
+  use_case text not null,
+  phone_country_code text not null,
+  phone_number text not null,
+  phone_e164 text not null,
+  created_at timestamp with time zone default now()
+);
+```
+
+Enable Row Level Security and add an insert policy:
+
+```sql
+alter table public.leads enable row level security;
+
+create policy "Allow public lead inserts"
+on public.leads
+for insert
+to anon
+with check (true);
+```
+
+Set the environment variables (see `.env.example`):
+
+```
+VITE_SUPABASE_URL=your_supabase_project_url
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+```
+
+## Docker (VPS)
+
+Build and run with Docker Compose:
+
+```sh
+docker compose up -d --build
+```
 
 ## How can I deploy this project?
 
