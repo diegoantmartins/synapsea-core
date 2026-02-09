@@ -8,17 +8,6 @@ services:
     environment:
       VITE_SUPABASE_URL: ${VITE_SUPABASE_URL}
       VITE_SUPABASE_ANON_KEY: ${VITE_SUPABASE_ANON_KEY}
-    restart: unless-stopped
-  # NOTE: Traefik will route traffic to this service using labels below.
-  # Keep only the `web` service and add Traefik labels. The nginx service
-  # previously added is removed to avoid port conflicts with existing proxy.
-  web:
-    build: .
-    expose:
-      - "4173"
-    environment:
-      VITE_SUPABASE_URL: ${VITE_SUPABASE_URL}
-      VITE_SUPABASE_ANON_KEY: ${VITE_SUPABASE_ANON_KEY}
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.synapsea-core.rule=Host(`go.synapsea.com.br`)"
