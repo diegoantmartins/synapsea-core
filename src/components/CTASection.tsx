@@ -1,14 +1,7 @@
 import { Button } from '@/components/ui/button';
-import { ArrowRight, CheckCircle } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import ScrollReveal from './ScrollReveal';
 import ContactForm from './ContactForm';
-
-const benefits = [
-  'Setup em até 2 semanas',
-  'Integração com seu CRM',
-  'Suporte dedicado',
-  'Sem fidelidade',
-];
 
 const CTASection = () => {
   return (
@@ -25,32 +18,19 @@ const CTASection = () => {
                 // próximo passo
               </span>
               <h2 className="text-3xl md:text-4xl font-bold mt-4 mb-6">
-                Pronto para ter
-                <br />
-                <span className="text-synapse-cyan">mais reuniões?</span>
+                Se sua operação já atingiu o limite humano, é hora de mudar o sistema.
               </h2>
-              <p className="text-muted-foreground mb-8 leading-relaxed">
-                Agende uma conversa com nossa equipe. Vamos entender seu processo 
-                de vendas e mostrar como o Connect+ pode transformar seus resultados.
+              <p className="text-sm text-muted-foreground mb-8 leading-relaxed">
+                Sem pitch comercial. Falamos de arquitetura, gargalos e ROI.
               </p>
-              
-              {/* Benefits list */}
-              <div className="space-y-3 mb-8">
-                {benefits.map((benefit, index) => (
-                  <div key={index} className="flex items-center gap-3">
-                    <CheckCircle className="w-5 h-5 text-synapse-cyan" />
-                    <span className="text-foreground">{benefit}</span>
-                  </div>
-                ))}
-              </div>
-              
+
               <Button 
                 variant="synapse" 
                 size="lg"
                 className="shadow-[0_0_30px_hsl(176_95%_69%/0.3)] hover:shadow-[0_0_40px_hsl(176_95%_69%/0.5)] transition-shadow w-full sm:w-auto"
                 onClick={() => document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth' })}
               >
-                Falar com especialista
+                Solicitar conversa técnica
                 <ArrowRight className="w-5 h-5" />
               </Button>
             </div>
@@ -60,7 +40,7 @@ const CTASection = () => {
           <ScrollReveal delay={200}>
             <div id="contact-form" className="bg-card border border-border rounded-lg p-8">
               <h3 className="text-lg font-semibold mb-6">
-                Agende sua demonstração
+                Agende uma conversa técnica
               </h3>
               <ContactForm />
             </div>

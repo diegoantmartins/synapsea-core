@@ -59,6 +59,37 @@ This project is built with:
 - React
 - shadcn-ui
 - Tailwind CSS
+- Supabase
+
+## Supabase setup (leads)
+
+Create a `leads` table in Supabase with the fields below:
+
+```sql
+create table if not exists public.leads (
+  id uuid primary key default gen_random_uuid(),
+  name text not null,
+  email text not null,
+  company text,
+  use_case text not null,
+  created_at timestamp with time zone default now()
+);
+```
+
+Set the environment variables (see `.env.example`):
+
+```
+VITE_SUPABASE_URL=your_supabase_project_url
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+```
+
+## Docker (VPS)
+
+Build and run with Docker Compose:
+
+```sh
+docker compose up -d --build
+```
 
 ## How can I deploy this project?
 
