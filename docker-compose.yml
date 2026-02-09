@@ -15,3 +15,9 @@ services:
       - "traefik.http.routers.synapsea-core.tls=true"
       - "traefik.http.services.synapsea-core.loadbalancer.server.port=4173"
     restart: unless-stopped
+    networks:
+      - DiegoMaster
+
+networks:
+  DiegoMaster:
+    external: true
