@@ -4,21 +4,21 @@ import ScrollReveal from './ScrollReveal';
 const solutions = [
   {
     icon: Target,
-    title: 'Prospecção Ativa',
-    description: 'Encontra e engaja leads qualificados automaticamente, mesmo enquanto você dorme.',
-    benefit: 'Nunca mais perca uma oportunidade',
+    title: 'SDR Operacional',
+    description: 'Prospecta e qualifica leads com lógica de decisão e contexto contínuo.',
+    benefit: 'Pipeline com critério técnico',
   },
   {
     icon: Calendar,
-    title: 'Agendamento Automático',
-    description: 'Negocia horários, envia convites e confirma reuniões sem intervenção humana.',
-    benefit: 'Sua agenda sempre cheia',
+    title: 'Onboarding Coordenado',
+    description: 'Orquestra handoff humano, agenda e integração com CRM sem ruído.',
+    benefit: 'Transições sem perda de contexto',
   },
   {
     icon: BarChart3,
-    title: 'Qualificação Inteligente',
-    description: 'Filtra leads por potencial real de compra antes de chegar ao seu time.',
-    benefit: 'Só reuniões que valem a pena',
+    title: 'Suporte e Retenção',
+    description: 'Resolve fluxos de suporte com memória operacional e regras de negócio.',
+    benefit: 'Operação contínua e previsível',
   },
 ];
 
@@ -33,13 +33,31 @@ const AgentsSection = () => {
               // como funciona
             </span>
             <h2 className="text-3xl md:text-4xl font-bold mt-4 mb-4">
-              Um time de vendas que
-              <br />
-              <span className="text-synapse-cyan">nunca para.</span>
+              Agentes não são scripts. São funções de negócio.
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Três agentes trabalhando juntos para transformar leads frios em reuniões confirmadas.
+              Nossos agentes são desenvolvidos em Node.js, com acesso controlado a bases de conhecimento (RAG),
+              lógica de decisão e contexto contínuo. Cada agente executa uma função clara dentro da operação:
+              SDR, suporte, onboarding ou qualificação.
             </p>
+            <ul className="mt-6 grid gap-3 sm:grid-cols-2 text-sm text-muted-foreground max-w-2xl mx-auto">
+              <li className="flex items-center gap-2">
+                <span className="h-1.5 w-1.5 rounded-full bg-synapse-cyan" />
+                RAG com base vetorial
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="h-1.5 w-1.5 rounded-full bg-synapse-cyan" />
+                Controle de contexto
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="h-1.5 w-1.5 rounded-full bg-synapse-cyan" />
+                Zero árvore de decisão fixa
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="h-1.5 w-1.5 rounded-full bg-synapse-cyan" />
+                Comportamento adaptativo
+              </li>
+            </ul>
           </div>
         </ScrollReveal>
         

@@ -8,6 +8,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { useState } from 'react';
 import { Check, Loader2, Send } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { supabase } from '@/lib/supabaseClient';
 
 const contactSchema = z.object({
   name: z
@@ -20,11 +21,14 @@ const contactSchema = z.object({
     .trim()
     .email('Email inválido')
     .max(255, 'Email deve ter no máximo 255 caracteres'),
-  company: z
-    .string()
-    .trim()
-    .max(100, 'Empresa deve ter no máximo 100 caracteres')
-    .optional(),
+  company: z.preprocess(
+    (value) => (typeof value === 'string' && value.trim() === '' ? undefined : value),
+    z
+      .string()
+      .trim()
+      .max(100, 'Empresa deve ter no máximo 100 caracteres')
+      .optional()
+  ),
   useCase: z
     .string()
     .trim()
@@ -36,6 +40,7 @@ type ContactFormData = z.infer<typeof contactSchema>;
 
 const ContactForm = () => {
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const {
     register,
@@ -48,17 +53,33 @@ const ContactForm = () => {
 
   const onSubmit = async (data: ContactFormData) => {
     setStatus('submitting');
-    
-    // Simulate API call - replace with actual endpoint
+    setErrorMessage(null);
+
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-      console.log('Form submitted:', data);
+      const { error } = await supabase.from('leads').insert([
+        {
+          name: data.name,
+          email: data.email,
+          company: data.company ?? null,
+          use_case: data.useCase,
+        },
+      ]);
+
+      if (error) {
+        throw error;
+      }
+
       setStatus('success');
       reset();
-      
+
       // Reset status after 3 seconds
       setTimeout(() => setStatus('idle'), 3000);
-    } catch {
+    } catch (error) {
+      const message =
+        error instanceof Error
+          ? error.message
+          : 'Não foi possível enviar seus dados. Tente novamente.';
+      setErrorMessage(message);
       setStatus('error');
       setTimeout(() => setStatus('idle'), 3000);
     }
@@ -174,6 +195,10 @@ const ContactForm = () => {
         )}
         {status === 'error' && 'Erro ao enviar. Tente novamente.'}
       </Button>
+
+      {status === 'error' && errorMessage && (
+        <p className="text-xs text-synapse-amber text-center">{errorMessage}</p>
+      )}
 
       {/* Privacy note */}
       <p className="text-xs text-muted-foreground text-center">
