@@ -8,7 +8,6 @@ import { Textarea } from '@/components/ui/textarea';
 import { useState } from 'react';
 import { Check, Loader2, Send, ChevronDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { supabase } from '@/lib/supabaseClient';
 import { useDeviceTracking } from '@/hooks/use-device-tracking';
 
 // List of countries with DDI codes
@@ -99,8 +98,11 @@ const ContactForm = () => {
       // Combine country DDI with WhatsApp number
       const fullWhatsapp = `${selectedCountry.ddi}${data.whatsapp}`;
 
-      const { error } = await supabase.from('leads').insert([
-        {
+      // Send to server endpoint which will securely insert into Supabase
+      const res = await fetch('/api/submit-lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
           name: data.name,
           email: data.email,
           company: data.company ?? null,
@@ -138,8 +140,11 @@ const ContactForm = () => {
           connection_downlink: deviceInfo?.connectionDownlink,
           device_memory: deviceInfo?.deviceMemory,
           hardware_concurrency: deviceInfo?.hardwareConcurrency,
-        },
-      ]);
+        }),
+      });
+
+      const json = await res.json();
+      const error = res.ok ? null : json.error || 'unknown';
 
       if (error) {
         throw error;
