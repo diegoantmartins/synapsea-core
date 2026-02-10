@@ -4,7 +4,6 @@ import { cn } from '@/lib/utils';
 import { Menu, X } from 'lucide-react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import AnimatedLogo from './AnimatedLogo';
 
 const navItems = [
   { id: 'agentes', label: 'Agentes' },
@@ -33,7 +32,7 @@ const Header = () => {
             scrollToSection('hero');
           }}
         >
-          <AnimatedLogo size={36} />
+          <img src="/logo.png" alt="Synapsea Connect+ Logo" className="w-12 h-12 object-contain" />
           <div className="flex items-baseline gap-1">
             <span className="font-semibold text-lg tracking-tight text-foreground">Synapsea</span>
             <span className="font-mono text-sm text-synapse-cyan">[Connect+]</span>
