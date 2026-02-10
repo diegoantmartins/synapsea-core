@@ -1,10 +1,10 @@
 import ScrollReveal from './ScrollReveal';
 
 const architectureItems = [
-  'Docker para isolamento e deploy previsível',
-  'Supabase / PostgreSQL para dados e vetores',
-  'Meta API oficial para estabilidade',
-  'Integração nativa com CRM',
+  'Escalabilidade garantida sem perda de velocidade',
+  'Armazenamento seguro e confiável de leads',
+  'Conectividade estável com WhatsApp e Instagram',
+  'Sincronização automática com seu CRM',
 ];
 
 const ArchitectureSection = () => {
