@@ -66,17 +66,6 @@ const Header = () => {
           </Link>
         </nav>
         
-        {/* CTA */}
-        <div className="hidden md:block">
-          <Button 
-            variant="synapseOutline" 
-            size="sm"
-            className="font-mono"
-          >
-            LOGIN_SYSTEM
-          </Button>
-        </div>
-
         {/* Mobile menu button */}
         <button
           className="md:hidden p-2"
@@ -115,13 +104,6 @@ const Header = () => {
             >
               Docs
             </Link>
-            <Button 
-              variant="synapseOutline" 
-              size="sm"
-              className="mt-2 font-mono"
-            >
-              LOGIN_SYSTEM
-            </Button>
           </nav>
         </div>
       )}
