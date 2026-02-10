@@ -124,6 +124,20 @@ const ContactForm = () => {
           utm_content: deviceInfo?.utmContent,
           utm_term: deviceInfo?.utmTerm,
           user_agent: deviceInfo?.userAgent,
+          // Geo / network
+          ip_hash: deviceInfo?.ipHash,
+          city: deviceInfo?.city,
+          region: deviceInfo?.region,
+          geo_country: deviceInfo?.country,
+          geo_country_code: deviceInfo?.countryCode,
+          latitude: deviceInfo?.latitude,
+          longitude: deviceInfo?.longitude,
+          postal_code: deviceInfo?.postal,
+          org: deviceInfo?.org,
+          connection_type: deviceInfo?.connectionType,
+          connection_downlink: deviceInfo?.connectionDownlink,
+          device_memory: deviceInfo?.deviceMemory,
+          hardware_concurrency: deviceInfo?.hardwareConcurrency,
         },
       ]);
 

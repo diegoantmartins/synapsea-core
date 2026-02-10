@@ -40,6 +40,27 @@ CREATE INDEX IF NOT EXISTS idx_leads_device_type ON public.leads(device_type);
 CREATE INDEX IF NOT EXISTS idx_leads_source ON public.leads(source);
 CREATE INDEX IF NOT EXISTS idx_leads_utm_source ON public.leads(utm_source);
 
+-- Adicionar colunas para geolocalização e rede (compatível com implementações client-side)
+ALTER TABLE public.leads
+  ADD COLUMN IF NOT EXISTS ip_hash VARCHAR(128),
+  ADD COLUMN IF NOT EXISTS city VARCHAR(128),
+  ADD COLUMN IF NOT EXISTS region VARCHAR(128),
+  ADD COLUMN IF NOT EXISTS geo_country VARCHAR(128),
+  ADD COLUMN IF NOT EXISTS geo_country_code VARCHAR(8),
+  ADD COLUMN IF NOT EXISTS latitude VARCHAR(32),
+  ADD COLUMN IF NOT EXISTS longitude VARCHAR(32),
+  ADD COLUMN IF NOT EXISTS postal_code VARCHAR(32),
+  ADD COLUMN IF NOT EXISTS org VARCHAR(255),
+  ADD COLUMN IF NOT EXISTS connection_type VARCHAR(32),
+  ADD COLUMN IF NOT EXISTS connection_downlink VARCHAR(32),
+  ADD COLUMN IF NOT EXISTS device_memory VARCHAR(32),
+  ADD COLUMN IF NOT EXISTS hardware_concurrency INTEGER;
+
+-- Índices para buscas frequentes
+CREATE INDEX IF NOT EXISTS idx_leads_city ON public.leads(city);
+CREATE INDEX IF NOT EXISTS idx_leads_geo_country ON public.leads(geo_country);
+CREATE INDEX IF NOT EXISTS idx_leads_ip_hash ON public.leads(ip_hash);
+
 -- Habilitar RLS (Row Level Security)
 ALTER TABLE public.leads ENABLE ROW LEVEL SECURITY;
 

@@ -18,6 +18,20 @@ export interface DeviceInfo {
   utmTerm?: string;
   timestamp: string;
   ipInfo?: string; // Will be fetched from client IP API if available
+  // Additional geo / network fields
+  ipHash?: string; // SHA-256 hash of the client IP (privacy-friendly)
+  city?: string;
+  region?: string;
+  country?: string;
+  countryCode?: string;
+  latitude?: string;
+  longitude?: string;
+  postal?: string;
+  org?: string;
+  connectionType?: string;
+  connectionDownlink?: string;
+  deviceMemory?: string;
+  hardwareConcurrency?: number;
 }
 
 export function useDeviceTracking(): DeviceInfo | null {
@@ -96,19 +110,23 @@ export function useDeviceTracking(): DeviceInfo | null {
 
       if (!referrer) return 'direct';
 
-      const referrerUrl = new URL(referrer);
-      const hostname = referrerUrl.hostname;
+      try {
+        const referrerUrl = new URL(referrer);
+        const hostname = referrerUrl.hostname;
 
-      if (hostname.includes('google')) return 'google';
-      if (hostname.includes('facebook')) return 'facebook';
-      if (hostname.includes('instagram')) return 'instagram';
-      if (hostname.includes('linkedin')) return 'linkedin';
-      if (hostname.includes('twitter') || hostname.includes('x.com')) return 'twitter';
-      if (hostname.includes('youtube')) return 'youtube';
-      if (hostname.includes('whatsapp')) return 'whatsapp';
-      if (hostname.includes('telegram')) return 'telegram';
+        if (hostname.includes('google')) return 'google';
+        if (hostname.includes('facebook')) return 'facebook';
+        if (hostname.includes('instagram')) return 'instagram';
+        if (hostname.includes('linkedin')) return 'linkedin';
+        if (hostname.includes('twitter') || hostname.includes('x.com')) return 'twitter';
+        if (hostname.includes('youtube')) return 'youtube';
+        if (hostname.includes('whatsapp')) return 'whatsapp';
+        if (hostname.includes('telegram')) return 'telegram';
 
-      return hostname;
+        return hostname;
+      } catch (e) {
+        return 'unknown';
+      }
     };
 
     const { browser, os, osVersion } = parseUserAgent();
@@ -132,9 +150,58 @@ export function useDeviceTracking(): DeviceInfo | null {
       utmContent: utmParams.utm_content,
       utmTerm: utmParams.utm_term,
       timestamp: new Date().toISOString(),
+      ipInfo: undefined,
+      connectionType: (navigator as any).connection?.effectiveType || undefined,
+      connectionDownlink: (navigator as any).connection?.downlink ? String((navigator as any).connection.downlink) : undefined,
+      deviceMemory: (navigator as any).deviceMemory ? String((navigator as any).deviceMemory) : undefined,
+      hardwareConcurrency: navigator.hardwareConcurrency || undefined,
     };
 
     setDeviceInfo(info);
+
+    // Fetch IP-based geolocation (client-side). We'll only store non-sensitive fields and a hash of the IP.
+    (async () => {
+      try {
+        const resp = await fetch('https://ipapi.co/json/');
+        if (!resp.ok) return;
+        const d = await resp.json();
+
+        const ip = d.ip || d.ip_address || '';
+
+        // Compute SHA-256 hash of IP for privacy
+        let ipHash: string | undefined = undefined;
+        if (ip && typeof crypto !== 'undefined' && crypto.subtle) {
+          try {
+            const enc = new TextEncoder().encode(ip);
+            const hashBuf = await crypto.subtle.digest('SHA-256', enc);
+            const hashArray = Array.from(new Uint8Array(hashBuf));
+            ipHash = hashArray.map((b) => b.toString(16).padStart(2, '0')).join('');
+          } catch (e) {
+            // ignore hashing errors
+          }
+        }
+
+        setDeviceInfo((prev) =>
+          prev
+            ? {
+                ...prev,
+                ipHash,
+                city: d.city || d.region || undefined,
+                region: d.region || undefined,
+                country: d.country_name || d.country || undefined,
+                countryCode: d.country_code || undefined,
+                latitude: d.latitude ? String(d.latitude) : d.lat ? String(d.lat) : undefined,
+                longitude: d.longitude ? String(d.longitude) : d.lon ? String(d.lon) : undefined,
+                postal: d.postal || d.postal_code || undefined,
+                org: d.org || d.org_name || d.organization || undefined,
+                ipInfo: JSON.stringify(d),
+              }
+            : prev
+        );
+      } catch (e) {
+        // silent fail
+      }
+    })();
   }, []);
 
   return deviceInfo;
