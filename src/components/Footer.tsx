@@ -9,6 +9,7 @@ const Footer = () => {
           {/* Brand */}
           <div className="flex items-center gap-3">
             <img src="/logo.png" alt="Synapsea Connect+ Logo" className="w-10 h-10 object-contain" />
+            <div className="flex items-baseline gap-1">
               <span className="font-semibold tracking-tight text-foreground">Synapsea</span>
               <span className="font-mono text-xs text-synapse-cyan">[Connect+]</span>
             </div>
