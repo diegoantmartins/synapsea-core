@@ -9,6 +9,7 @@ import { useState } from 'react';
 import { Check, Loader2, Send, ChevronDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { supabase } from '@/lib/supabaseClient';
+import { useDeviceTracking } from '@/hooks/use-device-tracking';
 
 // List of countries with DDI codes
 const COUNTRIES = [
@@ -73,6 +74,7 @@ const ContactForm = () => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [selectedCountry, setSelectedCountry] = useState<typeof COUNTRIES[0]>(COUNTRIES[0]); // Brasil padrão
   const [showCountryDropdown, setShowCountryDropdown] = useState(false);
+  const deviceInfo = useDeviceTracking();
 
   const {
     register,
@@ -104,6 +106,24 @@ const ContactForm = () => {
           company: data.company ?? null,
           whatsapp: fullWhatsapp,
           problem: data.problem,
+          country_code: selectedCountry.code,
+          ddi: selectedCountry.ddi,
+          // Device tracking data
+          device_type: deviceInfo?.deviceType,
+          browser: deviceInfo?.browser,
+          os: deviceInfo?.os,
+          os_version: deviceInfo?.osVersion,
+          screen_resolution: deviceInfo?.screenResolution,
+          timezone: deviceInfo?.timezone,
+          language: deviceInfo?.language,
+          referrer: deviceInfo?.referrer,
+          source: deviceInfo?.source,
+          utm_source: deviceInfo?.utmSource,
+          utm_medium: deviceInfo?.utmMedium,
+          utm_campaign: deviceInfo?.utmCampaign,
+          utm_content: deviceInfo?.utmContent,
+          utm_term: deviceInfo?.utmTerm,
+          user_agent: deviceInfo?.userAgent,
         },
       ]);
 
