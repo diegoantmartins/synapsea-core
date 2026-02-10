@@ -11,7 +11,7 @@ const solutions = [
   {
     icon: Calendar,
     title: 'Onboarding Coordenado',
-    description: 'Orquestra handoff humano, agenda e integração com CRM sem ruído.',
+    description: 'Orquestra handoff humano, agenda e integração com seu CRM.',
     benefit: 'Transições sem perda de contexto',
   },
   {
