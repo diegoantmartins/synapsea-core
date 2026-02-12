@@ -1,27 +1,34 @@
 import { Check, X } from 'lucide-react';
 import ScrollReveal from './ScrollReveal';
-import AnimatedCounter from './AnimatedCounter';
-
 const stats = [
-  { value: 80, suffix: '%', label: 'dos leads respondem em menos de 1 minuto' },
-  { value: 3, suffix: 'x', label: 'mais reuniões agendadas por mês' },
-  { value: 0, suffix: '', label: 'leads esquecidos ou perdidos', prefix: '' },
+  {
+    title: 'Controle centralizado',
+    description: 'Conversas, agentes e humanos operando no mesmo fluxo.',
+  },
+  {
+    title: 'Resposta garantida',
+    description: 'Nenhuma mensagem se perde no caminho.',
+  },
+  {
+    title: 'Memória operacional',
+    description: 'Histórico e contexto disponíveis para decisões rápidas.',
+  },
 ];
 
 const withConnect = [
-  'Resposta instantânea a qualquer hora',
-  'Follow-up automático e persistente',
-  'Qualificação inteligente de cada lead',
-  'Agenda preenchida com reuniões reais',
-  'Sua equipe focada em fechar negócios',
+  'Handoff humano dentro do mesmo fluxo operacional',
+  'Contexto preservado do primeiro toque ao fechamento',
+  'Agentes com lógica de decisão e memória contínua',
+  'Visibilidade em tempo real de cada conversa',
+  'CRM atualizado sem retrabalho',
 ];
 
 const withoutConnect = [
-  'Leads esperando horas por resposta',
-  'Follow-ups esquecidos ou atrasados',
-  'Qualificação manual e inconsistente',
-  'Oportunidades perdidas todo dia',
-  'Equipe sobrecarregada com tarefas repetitivas',
+  'Handoffs desconectados e perda de contexto',
+  'Mensagens perdidas em canais isolados',
+  'Decisões sem histórico e sem rastreio',
+  'Equipe apagando incêndios operacionais',
+  'CRM inconsistente e desatualizado',
 ];
 
 const WhyConnectSection = () => {
@@ -35,10 +42,15 @@ const WhyConnectSection = () => {
               // a diferença
             </span>
             <h2 className="text-3xl md:text-4xl font-bold mt-4 mb-4">
-              Chega de perder vendas
-              <br />
-              <span className="text-synapse-cyan">por falta de follow-up.</span>
+              Mais do que omnicanal. Um sistema de controle.
             </h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              O Connect+ centraliza conversas, agentes de IA e humanos em um único ambiente operacional.
+              Nenhuma mensagem se perde. Nenhum lead fica sem resposta. Nenhuma decisão acontece no escuro.
+            </p>
+            <div className="inline-flex items-center gap-2 px-4 py-2 mt-6 border border-synapse-cyan/30 rounded-full bg-secondary/30 text-sm text-synapse-cyan">
+              IA + Humano no mesmo fluxo operacional
+            </div>
           </div>
         </ScrollReveal>
         
@@ -47,12 +59,10 @@ const WhyConnectSection = () => {
           <div className="grid md:grid-cols-3 gap-6 mb-20">
             {stats.map((stat, index) => (
               <div key={index} className="text-center p-8 bg-card border border-border rounded-lg">
-                <div className="text-4xl md:text-5xl font-bold text-synapse-cyan mb-2">
-                  {stat.prefix}
-                  <AnimatedCounter end={stat.value} duration={2000} />
-                  {stat.suffix}
+                <div className="text-xl md:text-2xl font-bold text-synapse-cyan mb-3">
+                  {stat.title}
                 </div>
-                <div className="text-sm text-muted-foreground">{stat.label}</div>
+                <div className="text-sm text-muted-foreground">{stat.description}</div>
               </div>
             ))}
           </div>

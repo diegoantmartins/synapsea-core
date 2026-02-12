@@ -1,73 +1,99 @@
-# Welcome to your Lovable project
+# Synapsea Connect+ Landing
 
-## Project info
+Landing page institucional do Connect+ com foco em infraestrutura de IA para operações B2B.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
-
-## How can I edit this code?
-
-There are several ways of editing your application.
-
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
+## Stack
 
 - Vite
 - TypeScript
 - React
 - shadcn-ui
 - Tailwind CSS
+- Supabase
 
-## How can I deploy this project?
+## Como rodar localmente
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+```sh
+# 1) Instalar dependências
+npm install
 
-## Can I connect a custom domain to my Lovable project?
+# 2) Rodar em desenvolvimento
+npm run dev
+```
 
-Yes, you can!
+## Supabase setup (leads)
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+Rode o SQL no editor do Supabase:
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+```sql
+-- file: supabase/leads_setup.sql
+```
+
+Esse script cria a tabela `public.leads` com validações, índices e policy RLS para inserts anônimos da landing.
+
+Configure as variáveis de ambiente (veja `.env.example`):
+
+```env
+VITE_SUPABASE_URL=your_supabase_project_url
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+```
+
+## Automação WhatsApp via UAZAPI (início automático da conversa)
+
+Com a tabela pronta, rode também o patch de status de conversa:
+
+```sql
+-- file: supabase/leads_conversation_patch.sql
+```
+
+Depois publique a Edge Function:
+
+```sh
+supabase functions deploy start-whatsapp-conversation
+```
+
+Configure os secrets da função:
+
+```sh
+supabase secrets set SUPABASE_URL=...
+supabase secrets set SUPABASE_SERVICE_ROLE_KEY=...
+supabase secrets set UAZAPI_URL=...
+supabase secrets set UAZAPI_KEY=...
+supabase secrets set UAZAPI_INSTANCE_ID=...
+supabase secrets set UAZAPI_INSTANCE_TOKEN=...
+supabase secrets set UAZAPI_WEBHOOK_SECRET=...
+supabase secrets set UAZAPI_INITIAL_MESSAGE="Olá, {{name}}! Recebemos seu contato na Synapsea."
+```
+
+No painel do Supabase, crie um **Database Webhook**:
+- Table: `public.leads`
+- Events: `INSERT`
+- URL: `https://<project-ref>.functions.supabase.co/start-whatsapp-conversation`
+- Header: `x-webhook-secret: <UAZAPI_WEBHOOK_SECRET>`
+
+A função envia a primeira mensagem pelo endpoint `POST /api/send/text` da UAZAPI e atualiza `conversation_status` no lead.
+
+## Checklist de testes (pré-produção)
+
+```sh
+# 1) Instalar dependências
+npm install
+
+# 2) Qualidade
+npm run lint
+npm run test
+
+# 3) Build de produção
+npm run build
+
+# 4) Subir via Docker
+docker compose up -d --build
+```
+
+Se o seu ambiente bloquear o registry npm, rode os comandos na VPS.
+
+## Docker (VPS)
+
+```sh
+docker compose up -d --build
+```
