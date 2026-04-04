@@ -32,7 +32,7 @@ const HeroSection = () => {
         {/* Description */}
         <ScrollReveal delay={200}>
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed">
-            O Connect+ é um sistema omnicanal com agentes de IA projetados para prospectar,
+            O Connect+ é um sistema omnichanel com agentes de IA projetados para prospectar,
             qualificar e orquestrar conversas em escala — com handoff humano, memória operacional
             e integração total ao seu CRM.
           </p>

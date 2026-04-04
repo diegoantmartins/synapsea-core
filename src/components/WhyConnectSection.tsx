@@ -42,7 +42,7 @@ const WhyConnectSection = () => {
               // a diferença
             </span>
             <h2 className="text-3xl md:text-4xl font-bold mt-4 mb-4">
-              Mais do que omnicanal. Um sistema de controle.
+              Mais do que omnichanel. Um sistema de controle.
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
               O Connect+ centraliza conversas, agentes de IA e humanos em um único ambiente operacional.

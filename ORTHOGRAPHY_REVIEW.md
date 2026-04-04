@@ -71,7 +71,7 @@
 ### WhyConnectSection
 | Item | Status | Observação |
 |------|--------|-----------|
-| Header | ✅ OK | "Mais do que omnicanal. Um sistema de controle." |
+| Header | ✅ OK | "Mais do que omnichanel. Um sistema de controle." |
 | Stats | ✅ OK | Três itens com acentos corretos |
 | Comparison title | ✅ OK | "Com Connect+" vs "Sem Connect+" |
 | List items | ✅ OK | Verbos concordando, gramática consistente |

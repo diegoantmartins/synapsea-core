@@ -1,171 +1,26 @@
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { useState } from 'react';
 import { Check, Loader2, Send, ChevronDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { useDeviceTracking } from '@/hooks/use-device-tracking';
-
-// List of countries with DDI codes
-const COUNTRIES = [
-  { flag: '🇧🇷', name: 'Brasil', ddi: '+55', code: 'BR', minDigits: 10, maxDigits: 11 },
-  { flag: '🇺🇸', name: 'Estados Unidos', ddi: '+1', code: 'US', minDigits: 10, maxDigits: 10 },
-  { flag: '🇨🇦', name: 'Canadá', ddi: '+1', code: 'CA', minDigits: 10, maxDigits: 10 },
-  { flag: '🇲🇽', name: 'México', ddi: '+52', code: 'MX', minDigits: 10, maxDigits: 10 },
-  { flag: '🇦🇷', name: 'Argentina', ddi: '+54', code: 'AR', minDigits: 9, maxDigits: 10 },
-  { flag: '🇨🇴', name: 'Colômbia', ddi: '+57', code: 'CO', minDigits: 10, maxDigits: 10 },
-  { flag: '🇵🇪', name: 'Peru', ddi: '+51', code: 'PE', minDigits: 9, maxDigits: 9 },
-  { flag: '🇨🇭', name: 'Chile', ddi: '+56', code: 'CL', minDigits: 9, maxDigits: 9 },
-  { flag: '🇬🇧', name: 'Reino Unido', ddi: '+44', code: 'UK', minDigits: 10, maxDigits: 11 },
-  { flag: '🇪🇸', name: 'Espanha', ddi: '+34', code: 'ES', minDigits: 9, maxDigits: 9 },
-  { flag: '🇫🇷', name: 'França', ddi: '+33', code: 'FR', minDigits: 9, maxDigits: 9 },
-  { flag: '🇩🇪', name: 'Alemanha', ddi: '+49', code: 'DE', minDigits: 10, maxDigits: 11 },
-  { flag: '🇮🇹', name: 'Itália', ddi: '+39', code: 'IT', minDigits: 10, maxDigits: 10 },
-  { flag: '🇵🇹', name: 'Portugal', ddi: '+351', code: 'PT', minDigits: 9, maxDigits: 9 },
-  { flag: '🇦🇺', name: 'Austrália', ddi: '+61', code: 'AU', minDigits: 9, maxDigits: 9 },
-  { flag: '🇯🇵', name: 'Japão', ddi: '+81', code: 'JP', minDigits: 10, maxDigits: 11 },
-  { flag: '🇳🇿', name: 'Nova Zelândia', ddi: '+64', code: 'NZ', minDigits: 9, maxDigits: 9 },
-  { flag: '🇿🇦', name: 'África do Sul', ddi: '+27', code: 'ZA', minDigits: 9, maxDigits: 10 },
-  { flag: '🇮🇳', name: 'Índia', ddi: '+91', code: 'IN', minDigits: 10, maxDigits: 10 },
-  { flag: '🇨🇳', name: 'China', ddi: '+86', code: 'CN', minDigits: 10, maxDigits: 11 },
-];
-
-const contactSchema = z.object({
-  name: z
-    .string()
-    .trim()
-    .min(2, 'Nome deve ter pelo menos 2 caracteres')
-    .max(100, 'Nome deve ter no máximo 100 caracteres'),
-  email: z
-    .string()
-    .trim()
-    .email('Email inválido')
-    .max(255, 'Email deve ter no máximo 255 caracteres'),
-  company: z.preprocess(
-    (value) => (typeof value === 'string' && value.trim() === '' ? undefined : value),
-    z
-      .string()
-      .trim()
-      .max(100, 'Empresa deve ter no máximo 100 caracteres')
-      .optional()
-  ),
-  country: z.string().trim().min(1, 'Selecione um país'),
-  whatsapp: z
-    .string()
-    .trim()
-    .min(1, 'WhatsApp é obrigatório')
-    .regex(/^\d+$/, 'Apenas números'),
-  problem: z
-    .string()
-    .trim()
-    .min(10, 'Descreva o problema em pelo menos 10 caracteres')
-    .max(1000, 'Descrição deve ter no máximo 1000 caracteres'),
-});
-
-type ContactFormData = z.infer<typeof contactSchema>;
+import { COUNTRIES } from '@/lib/countries';
+import { useContactForm } from '@/hooks/use-contact-form';
 
 const ContactForm = () => {
-  const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [selectedCountry, setSelectedCountry] = useState<typeof COUNTRIES[0]>(COUNTRIES[0]); // Brasil padrão
-  const [showCountryDropdown, setShowCountryDropdown] = useState(false);
-  const deviceInfo = useDeviceTracking();
-
   const {
     register,
     handleSubmit,
-    reset,
-    formState: { errors },
-    watch,
-  } = useForm<ContactFormData>({
-    resolver: zodResolver(contactSchema),
-    defaultValues: {
-      country: COUNTRIES[0].code,
-    },
-  });
-
-  const whatsappValue = watch('whatsapp');
-
-  const onSubmit = async (data: ContactFormData) => {
-    setStatus('submitting');
-    setErrorMessage(null);
-
-    try {
-      // Combine country DDI with WhatsApp number
-      const fullWhatsapp = `${selectedCountry.ddi}${data.whatsapp}`;
-
-      // Send to server endpoint which will securely insert into Supabase
-      const res = await fetch('/api/submit-lead', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: data.name,
-          email: data.email,
-          company: data.company ?? null,
-          whatsapp: fullWhatsapp,
-          problem: data.problem,
-          country_code: selectedCountry.code,
-          ddi: selectedCountry.ddi,
-          // Device tracking data
-          device_type: deviceInfo?.deviceType,
-          browser: deviceInfo?.browser,
-          os: deviceInfo?.os,
-          os_version: deviceInfo?.osVersion,
-          screen_resolution: deviceInfo?.screenResolution,
-          timezone: deviceInfo?.timezone,
-          language: deviceInfo?.language,
-          referrer: deviceInfo?.referrer,
-          source: deviceInfo?.source,
-          utm_source: deviceInfo?.utmSource,
-          utm_medium: deviceInfo?.utmMedium,
-          utm_campaign: deviceInfo?.utmCampaign,
-          utm_content: deviceInfo?.utmContent,
-          utm_term: deviceInfo?.utmTerm,
-          user_agent: deviceInfo?.userAgent,
-          // Geo / network
-          ip_hash: deviceInfo?.ipHash,
-          city: deviceInfo?.city,
-          region: deviceInfo?.region,
-          geo_country: deviceInfo?.country,
-          geo_country_code: deviceInfo?.countryCode,
-          latitude: deviceInfo?.latitude,
-          longitude: deviceInfo?.longitude,
-          postal_code: deviceInfo?.postal,
-          org: deviceInfo?.org,
-          connection_type: deviceInfo?.connectionType,
-          connection_downlink: deviceInfo?.connectionDownlink,
-          device_memory: deviceInfo?.deviceMemory,
-          hardware_concurrency: deviceInfo?.hardwareConcurrency,
-        }),
-      });
-
-      const json = await res.json();
-      const error = res.ok ? null : json.error || 'unknown';
-
-      if (error) {
-        throw error;
-      }
-
-      setStatus('success');
-      reset();
-      setSelectedCountry(COUNTRIES[0]);
-
-      // Reset status after 3 seconds
-      setTimeout(() => setStatus('idle'), 5000);
-    } catch (error) {
-      const message =
-        error instanceof Error
-          ? error.message
-          : 'Não foi possível enviar seus dados. Tente novamente.';
-      setErrorMessage(message);
-      setStatus('error');
-      setTimeout(() => setStatus('idle'), 3000);
-    }
-  };
+    errors,
+    whatsappValue,
+    status,
+    errorMessage,
+    selectedCountry,
+    setSelectedCountry,
+    showCountryDropdown,
+    setShowCountryDropdown,
+    onSubmit,
+  } = useContactForm();
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
