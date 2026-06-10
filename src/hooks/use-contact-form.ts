@@ -4,6 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { COUNTRIES } from '@/lib/countries';
 import { useDeviceTracking } from '@/hooks/use-device-tracking';
+import { api } from '@/lib/api';
 
 export const contactSchema = z.object({
   name: z
@@ -63,9 +64,8 @@ export const useContactForm = () => {
     try {
       const fullWhatsapp = `${selectedCountry.ddi}${data.whatsapp}`;
 
-      const res = await fetch('/api/submit-lead', {
+      await api('/api/submit-lead', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           name: data.name,
           email: data.email,
@@ -104,11 +104,6 @@ export const useContactForm = () => {
           hardware_concurrency: deviceInfo?.hardwareConcurrency,
         }),
       });
-
-      const json = await res.json();
-      const error = res.ok ? null : json.error || 'unknown';
-
-      if (error) throw error;
 
       setStatus('success');
       reset();

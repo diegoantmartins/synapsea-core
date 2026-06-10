@@ -1,23 +1,43 @@
-version: "3.9"
-
 services:
   web:
-    image: synapsea-core-web:latest
-    expose:
-      - "4173"
-    environment:
-      VITE_SUPABASE_URL: ${VITE_SUPABASE_URL}
-      VITE_SUPABASE_ANON_KEY: ${VITE_SUPABASE_ANON_KEY}
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.synapsea-core.rule=Host(`go.synapsea.com.br`)"
-      - "traefik.http.routers.synapsea-core.entrypoints=web,websecure"
-      - "traefik.http.routers.synapsea-core.tls=true"
-      - "traefik.http.services.synapsea-core.loadbalancer.server.port=4173"
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        VITE_SUPABASE_URL: ${VITE_SUPABASE_URL}
+        VITE_SUPABASE_ANON_KEY: ${VITE_SUPABASE_ANON_KEY}
+        VITE_API_URL: ${VITE_API_URL:-}
+    image: synapsea-web:latest
+    container_name: synapsea-web
+    ports:
+      - "4173:4173"
     restart: unless-stopped
     networks:
-      - DiegoMaster
+      - shared-net
+    depends_on:
+      - server
+
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    image: synapsea-server:latest
+    container_name: synapsea-server
+    environment:
+      NODE_ENV: production
+      PORT: 3001
+      SUPABASE_URL: ${VITE_SUPABASE_URL}
+      SUPABASE_SERVICE_ROLE_KEY: ${SUPABASE_SERVICE_ROLE_KEY}
+      SYNAPSEA_ADMIN_PASSWORD: ${SYNAPSEA_ADMIN_PASSWORD}
+      JWT_SECRET: ${JWT_SECRET}
+      UAZAPI_BASE_URL: ${UAZAPI_BASE_URL:-https://synapsea.uazapi.com}
+      CORS_ORIGIN: ${CORS_ORIGIN:-*}
+    expose:
+      - "3001"
+    restart: unless-stopped
+    networks:
+      - shared-net
 
 networks:
-  DiegoMaster:
+  shared-net:
     external: true
