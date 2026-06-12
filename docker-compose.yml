@@ -38,6 +38,22 @@ services:
     networks:
       - shared-net
 
+  keepalive:
+    image: synapsea-server:latest
+    container_name: synapsea-keepalive
+    environment:
+      SUPABASE_URL: ${VITE_SUPABASE_URL}
+      SUPABASE_SERVICE_ROLE_KEY: ${SUPABASE_SERVICE_ROLE_KEY}
+      KEEPALIVE_INTERVAL_SECONDS: ${KEEPALIVE_INTERVAL_SECONDS:-43200}
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - 'while true; do node scripts/keepalive.mjs; sleep "${KEEPALIVE_INTERVAL_SECONDS:-43200}"; done'
+    restart: unless-stopped
+    depends_on:
+      - server
+    networks:
+      - shared-net
+
 networks:
   shared-net:
     external: true

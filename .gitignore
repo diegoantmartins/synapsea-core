@@ -23,6 +23,11 @@ dist-ssr
 *.sln
 *.sw?
 .env
+.env.bak.*
+.env.*.bak
+
+# Local secrets / exported configs (contain live keys)
+ConexaoUazapi.json
 
 # Agentes e Skills Locais (Symlinks)
 .agents/
